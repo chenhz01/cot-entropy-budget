@@ -23,6 +23,23 @@ def test_policy_text_tiers():
     assert t_hi == HIGH and t_lo == LOW, (t_hi, t_lo)
 
 
+def test_falsify_hit_upgrades_tier():
+    """v1.1 G5 修复判别器：证伪/反例命中必须参与判档（修复前是死代码）。
+
+    判定取反验红：把 policy_tier 的 f 升级段删掉，本测试必须 FAIL。
+    """
+    # 纯收敛文本 + 双证伪命中 -> 修复前 LOW，修复后 MED
+    t, why = policy_tier(Step(0, text="综上结论已定；这是对它的反例与证伪检查"))
+    assert t == MED, (t, why)
+    assert "f 判档修复" in why[0], why
+    # 无证伪命中的纯收敛文本 -> 仍 LOW（不许过度升级）
+    t2, _ = policy_tier(Step(0, text="综上结论已定，答案为 24"))
+    assert t2 == LOW, t2
+    # 状态特征路径不受文本 f 影响（状态特征 > 文本启发的优先级保持）
+    t3, _ = policy_tier(Step(0, n_open=4, text="这是反例证伪"))
+    assert t3 == HIGH, t3
+
+
 def test_allocator_budget_hard_constraint():
     # budget=1、2 步：PRUNE 兜底后必须 feasible（v1.0 曾在此失败）
     steps = [Step(i, text="可能候选" * (i + 1)) for i in range(2)]

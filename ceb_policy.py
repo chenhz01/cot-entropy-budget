@@ -98,6 +98,14 @@ def policy_tier(step: Step):
         tier, why = MED, f"分支信号 {b} 略占优"
     else:
         tier, why = LOW, f"收敛/证伪信号主导 (b={b}, c={c}, f={f})"
+    # [v1.1 修复 G5] f 参与判档：证伪/反例命中是「主动探索不确定性」的信号，
+    # 至少升一档（LOW->MED, MED->HIGH）。修复前 f 只进 reason 文案、从不判档
+    # （死代码）——fresh-eyes 复核员实证：13/14 证伪步被判 LOW。
+    if f >= 2 or (f >= 1 and score >= 1):
+        upgraded = {LOW: MED, MED: HIGH, HIGH: HIGH}[tier]
+        if upgraded != tier:
+            why += f"；证伪命中 {f} -> {tier}->{upgraded}（f 判档修复 v1.1）"
+            tier = upgraded
     step.kind = classify_text(step.text)
     reasons.append(why + " [推算:文本启发]")
     return tier, reasons
