@@ -29,5 +29,13 @@
     "examples/": "dir:1 files",
     "tests/": "dir:1 files"
   },
-  "push_policy": "本文件只生成发布物；推送为对外动作，须人工明示授权后执行"
+  "push_policy": "已推送：2026-10-19 22:2x，commit b1b3b90，仓库 chenhz01/cot-entropy-budget（MIT，公开）",
+  "push_record": {
+    "url": "https://github.com/chenhz01/cot-entropy-budget",
+    "commit": "b1b3b90",
+    "pushed_at": "2026-10-19",
+    "authorized_by": "善伦（2026-10-19 指令「①②③ 都执行，做好发表突破组件和善伦保护」）",
+    "desanitized_check": "push 前后各跑一次敏感模式扫描（内部路径/人名/key/规则目录），public 侧清零",
+    "rate_limit_note": "首试遇平台二级限流（当天已建 12+ 仓），约 1 小时后恢复成功"
+  }
 }

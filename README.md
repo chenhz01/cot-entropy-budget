@@ -39,6 +39,12 @@ $PY ceb_realdata.py                                      # 真语料分布（包
 $PY ceb_publish.py                                       # 生成本地发布物（不推送）
 ```
 
+## 发布状态
+
+- 仓库：**https://github.com/chenhz01/cot-entropy-budget**（MIT，公开）
+- 首推 2026-10-19（commit `b1b3b90`），push 前后各跑一次脱敏扫描，public 侧敏感模式清零。
+- 首发曾遇 GitHub 二级限流（当日建仓过多），约 1 小时后恢复。
+
 ## 诚实边界（必读）
 
 - 仿真 harness（24 点）测的是搜索推理体在真实可验证任务上的算力效率；
