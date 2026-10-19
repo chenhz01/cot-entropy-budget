@@ -149,6 +149,16 @@ def solve(nums, target, policy, url, key, model, tracker, temp=0.7, max_steps=8)
     return target in pool, steps
 
 
+def _progress(out_path, record):
+    """中间落盘：每个实例结束追加一行 JSONL——长跑进度可见（v1 教训：
+    无中间落盘时 2 小时等待零可见性，且停止即全丢）。"""
+    try:
+        with open(out_path + ".progress.jsonl", "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+    except OSError:
+        pass
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--models-json", default=DEFAULT_MODELS_JSON)
@@ -193,6 +203,10 @@ def main():
             line.append(f"{p}={'✓' if ok else '✗'}({st}步)")
         print(f"  实例{idx} {[str(x) for x in inst.nums]}→{inst.target}: "
               + " ".join(line) + f" | 累计调用 {tracker['calls']}")
+        _progress(args.out, {"inst": idx, "calls": tracker["calls"],
+                             "results": {p: dict(res[p]["runs"][-1])
+                                         for p in policies if res[p]["runs"]},
+                             "errors": tracker["errors"][-1:]})
 
     out = {"model": args.model, "task": "24点(前向模拟版)", "seed": args.seed,
            "policies": {}, "cost": dict(tracker),
