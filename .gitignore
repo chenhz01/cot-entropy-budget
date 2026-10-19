@@ -1,0 +1,11 @@
+# 内部工件不发布（OpenCore 藏配方侧）
+audit_repro.py
+audit_repro.json
+*.out.json
+llmverify*.json
+dist/private/
+dist/
+ceb_simharness_50.json
+ceb_simharness_cap40.json
+__pycache__/
+*.pyc

@@ -1,0 +1,33 @@
+{
+  "name": "cot-entropy-budget",
+  "version": "1.0.0",
+  "principle": "A藏配方/B送服务（GitHub 发表两原则 v1.1）",
+  "public_files": [
+    "ceb_policy.py",
+    "ceb_allocator.py",
+    "ceb_simharness.py",
+    "ceb_realdata.py",
+    "ceb_llmverify.py",
+    "README.md",
+    "examples/",
+    "tests/"
+  ],
+  "withheld": [
+    "政策词表调优参数（BRANCH/CONVERGE/FALSIFY 命中阈值与档位宽度映射的最终取值）",
+    "评测实例种子与容量上限的业务化取值（--seed/--cap 的产品化配置）",
+    "对账器 five_axis 自评表（内部工件，不对外）",
+    "内部语料提取配置（真实勾选卡/memory 路径与文件名，不对外）",
+    "audit_repro.py 复核复跑器与全部内部 JSON 结果（过程工件，不对外）"
+  ],
+  "fingerprints": {
+    "ceb_policy.py": "e4db2608be588dc2",
+    "ceb_allocator.py": "df855519e9934bd9",
+    "ceb_simharness.py": "155ff932e383fbcc",
+    "ceb_realdata.py": "04bac7eb9c9ad09e",
+    "ceb_llmverify.py": "e4b06160a278f04f",
+    "README.md": "4850eb1e35055737",
+    "examples/": "dir:1 files",
+    "tests/": "dir:1 files"
+  },
+  "push_policy": "本文件只生成发布物；推送为对外动作，须人工明示授权后执行"
+}
